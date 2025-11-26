@@ -3,9 +3,6 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import AdminDashboard from "./components/AdminDashboard";
 import "./App.css";
-import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell
-} from "recharts";
 
 // SVG icons
 const ShieldIcon = () => (
@@ -30,50 +27,17 @@ const WifiIcon = () => (
   </svg>
 );
 
+// Explanations for "Learn More" overlays
 const FEATURE_DETAILS = {
   'security': {
     title: "Safety & Security",
     icon: <ShieldIcon />,
-    desc:
-      "Vijayawada's Safety & Security system deploys hundreds of CCTV cameras and advanced monitoring solutions.\n" +
-      "Integration with emergency services enables 24/7 response.\n" +
-      "AI analytics detect unusual activity and support quick incident resolutions.\n" +
-      "Graph below shows reduction in reported incidents due to smart surveillance:",
-    chart: (
-      <BarChart width={320} height={190} data={[
-        { year: '2022', incidents: 120 },
-        { year: '2023', incidents: 80 },
-        { year: '2024', incidents: 48 }
-      ]}>
-        <XAxis dataKey="year"/>
-        <YAxis/>
-        <Tooltip/>
-        <Bar dataKey="incidents" fill="#E63946"/>
-      </BarChart>
-    ),
-    chartLabel: "Reported Incidents by Year"
+    desc: "The Safety & Security infrastructure in Vijayawada Smart City includes wide-scale deployment of CCTV cameras, advanced emergency response systems, and city-wide monitoring to ensure a safer environment for residents and visitors."
   },
   'buildings': {
     title: "Smart Buildings",
     icon: <BuildingIcon />,
-    desc:
-      "Buildings use sensor-based automation for lighting, climate, and security.\n" +
-      "Energy consumption is monitored and reduced via IoT platforms.\n" +
-      "Smart buildings improve comfort and lower costs for residents.\n" +
-      "Chart below compares energy scores:",
-    chart: (
-      <PieChart width={300} height={190}>
-        <Pie data={[
-          { name: "Traditional", value: 3 },
-          { name: "Smart", value: 8 }
-        ]} cx="50%" cy="50%" outerRadius={70} fill="#1D8348" label dataKey="value">
-          <Cell fill="#bbb"/>
-          <Cell fill="#1D8348"/>
-        </Pie>
-        <Tooltip/>
-      </PieChart>
-    ),
-    chartLabel: "Building Energy Efficiency Scores"
+    desc: "Smart Buildings feature energy-efficient designs, intelligent automation systems, sustainable construction methods, and digital integration, aiming to enhance comfort and reduce environmental impact throughout Vijayawada."
   },
   'transport': {
     title: "Public Transport",
@@ -83,22 +47,7 @@ const FEATURE_DETAILS = {
         <rect x="12" y="18" width="16" height="4" rx="2" fill="#fff"/>
       </svg>
     ),
-    desc:
-      "Smart city public transport offers real-time schedules, e-ticketing, and mobile route information.\n" +
-      "Wait times have dropped and commuter satisfaction increased.\n" +
-      "See how average wait times reduced after smart upgrades:",
-    chart: (
-      <BarChart width={320} height={190} data={[
-        { system: 'Traditional', wait: 15 },
-        { system: 'Smart', wait: 7 }
-      ]}>
-        <XAxis dataKey="system"/>
-        <YAxis/>
-        <Tooltip/>
-        <Bar dataKey="wait" fill="#3689E6"/>
-      </BarChart>
-    ),
-    chartLabel: "Average Commuter Wait (mins)"
+    desc: "The public transportation system uses real-time tracking, e-ticketing, and seamless metro–bus integration to help commuters move efficiently, safely, and affordably across the city."
   },
   'lighting': {
     title: "Smart Lighting",
@@ -109,22 +58,7 @@ const FEATURE_DETAILS = {
         <circle cx="20" cy="24" r="2" fill="#F3C600"/>
       </svg>
     ),
-    desc:
-      "LED smart lights save up to 60% of energy and improve safety.\n" +
-      "Adaptive brightness and remote monitoring boost reliability while lowering maintenance costs.\n" +
-      "See the drop in energy use below:",
-    chart: (
-      <BarChart width={320} height={190} data={[
-        { type: 'Old', energy: 210 },
-        { type: 'Smart', energy: 85 }
-      ]}>
-        <XAxis dataKey="type"/>
-        <YAxis/>
-        <Tooltip/>
-        <Bar dataKey="energy" fill="#F3C600"/>
-      </BarChart>
-    ),
-    chartLabel: "Street Lighting Energy Usage (kWh)"
+    desc: "Smart Lighting uses energy-efficient LED lights, sensor-driven automation, and city-wide controls to reduce power consumption and enhance public safety through 24/7 well-lit streets."
   },
   'water': {
     title: "Water Management",
@@ -134,47 +68,17 @@ const FEATURE_DETAILS = {
         <path d="M12 14c3.5 2 12.5 2 16 0" stroke="#26A69A" strokeWidth="2"/>
       </svg>
     ),
-    desc:
-      "Remote water meters and sensors now detect leaks quickly.\n" +
-      "Quality monitoring and dashboard controls help ensure continuous potable water for citizens.\n" +
-      "See annual water loss reductions below:",
-    chart: (
-      <BarChart width={320} height={190} data={[
-        { year: '2022', loss: 350 },
-        { year: '2024', loss: 110 }
-      ]}>
-        <XAxis dataKey="year"/>
-        <YAxis/>
-        <Tooltip/>
-        <Bar dataKey="loss" fill="#26A69A"/>
-      </BarChart>
-    ),
-    chartLabel: "Annual Water Loss (ML)"
+    desc: "Vijayawada's Water Management monitors supply, detects leaks, and uses quality sensors to ensure 24/7 potable water with reduced wastage and effective distribution for all areas."
   },
   'wifi': {
     title: "Free WiFi Zones",
     icon: <WifiIcon />,
-    desc:
-      "City-wide public WiFi covers transit hubs, parks, and markets.\n" +
-      "Access has expanded from 50 zones in 2022 to over 125 in 2024.\n" +
-      "Chart shows zone growth over years:",
-    chart: (
-      <BarChart width={320} height={190} data={[
-        { year: '2022', zones: 50 },
-        { year: '2023', zones: 95 },
-        { year: '2024', zones: 127 }
-      ]}>
-        <XAxis dataKey="year"/>
-        <YAxis/>
-        <Tooltip/>
-        <Bar dataKey="zones" fill="#3689E6"/>
-      </BarChart>
-    ),
-    chartLabel: "Number of WiFi Zones"
+    desc: "Free city WiFi is provided in major public areas and tourist spots, enabling easy access to digital government services, travel information, and seamless internet connectivity for all."
   }
 };
 
 export default function App() {
+  // Authentication state
   const [users, setUsers] = useState([
     { username: "admin", password: "admin", role: "admin" }
   ]);
@@ -182,6 +86,8 @@ export default function App() {
   const [role, setRole] = useState(localStorage.getItem("role") || null);
   const [page, setPage] = useState("login");
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  // Learn more modal state
   const [feature, setFeature] = useState(null);
 
   useEffect(() => {
@@ -241,22 +147,20 @@ export default function App() {
 
   function VijayawadaMainPage() {
     if (feature) {
+      // Single-feature explanation page
       const details = FEATURE_DETAILS[feature];
       return (
         <div style={{ padding: 40, textAlign: "center", background: "#f7faff", minHeight: "100vh" }}>
           <div style={{ marginBottom: 20 }}>{details.icon}</div>
           <h2 style={{ marginBottom: 10 }}>{details.title}</h2>
-          <div style={{ maxWidth: 540, margin: "0 auto", color: "#6a7280", fontSize: "1.1rem", whiteSpace: "pre-line" }}>
+          <div style={{ maxWidth: 540, margin: "0 auto", color: "#6a7280", fontSize: "1.1rem" }}>
             {details.desc}
-          </div>
-          <div style={{marginTop: 24}}>
-            {details.chartLabel && <div style={{ color: "#888", marginBottom: 4, fontSize: "1rem" }}>{details.chartLabel}</div>}
-            {details.chart}
           </div>
           <button className="btn" style={{ marginTop: 32 }} onClick={() => setFeature(null)}>Back</button>
         </div>
       );
     }
+
     return (
       <div className="app-landing" style={{ background: "#f7faff", minHeight: "100vh" }}>
         <header style={{ padding: "2rem 0 1rem 0", textAlign: "center" }}>
@@ -290,7 +194,9 @@ export default function App() {
 
         <section style={{ textAlign: "center", margin: "3rem 0 2rem 0" }}>
           <h2 style={{ fontWeight: 700, fontSize: "2rem" }}>Smart City Services</h2>
-          <div style={{ color: "#7687a0", maxWidth: 420, margin: "0 auto" }}>Discover the innovative services making Vijayawada a smart city</div>
+          <div style={{ color: "#7687a0", maxWidth: 420, margin: "0 auto" }}>
+            Discover the innovative services making Vijayawada a smart city
+          </div>
         </section>
         <section style={{
           display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 24, maxWidth: 900, margin: "0 auto 2.5rem"
